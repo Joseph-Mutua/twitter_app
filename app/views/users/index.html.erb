@@ -1,16 +1,15 @@
-class UsersIndexTest < ActionDispatch::IntegrationTest
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
 
-    def setup
-      @user = users(:michael)
-    end
-  
-    test "index including pagination" do
-      log_in_as(@user)
-      get users_path
-      assert_template 'users/index'
-     # assert_select 'div.pagination'
-      User.paginate(page: 1).each do |user|
-        assert_select 'a[href=?]', user_path(user), text: user.name
-      end
-    end
-  end
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= gravatar_for user, size: 50 %>
+      <%= link_to user.name, user %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
