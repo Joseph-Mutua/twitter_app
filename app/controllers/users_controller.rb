@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-    def following
+  def following
     @title = "Following"
     @user  = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
