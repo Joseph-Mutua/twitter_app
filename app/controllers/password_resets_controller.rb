@@ -29,6 +29,8 @@ class PasswordResetsController < ApplicationController
       render 'edit'                                     # Case (2)
     end
   end
+  
+      # Checks expiration of reset token.
 
   private
 
@@ -51,6 +53,13 @@ class PasswordResetsController < ApplicationController
     end
 
     # Checks expiration of reset token.
+    def check_expiration
+      if @user.password_reset_expired?
+        flash[:danger] = "Password reset has expired."
+        redirect_to new_password_reset_url
+      end
+    end
+    
     def check_expiration
       if @user.password_reset_expired?
         flash[:danger] = "Password reset has expired."
