@@ -134,10 +134,4 @@ class User < ApplicationRecord
     Micropost.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
   end
-
-  # Follows a user.
-  def follow(other_user)
-    following << other_user
-  end
-  
 end
